@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Socket.IO chat</title>
+    <link rel="stylesheet" type="text/css" href="main.css">
+  </head>
+  <body>
+  	<div class="row" style="height: 60px;">
+  		<div class="col-sm-3">
+  		</div>
+  		<div class="col-sm-9">
+  		</div>
+  	</div>
+
+  	<div class="row" style="height: 100%">
+  		<div class="col-sm-3">
+  		</div>
+	  	<div class="chat col-sm-9">
+		    <ul id="messages"></ul>
+		    <form action="">
+		      <input id="m" autocomplete="off" /><button>Send</button>
+		    </form>
+		    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+		    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+		    <script>
+		      var socket = io();
+		      $('form').submit(function(){
+		        socket.emit('chat message', $('#m').val());
+		        $('#m').val('');
+		        return false;
+		      });
+		      socket.on('chat message', function(msg){
+		        $('#messages').append($('<li>').text(msg));
+		      });
+	    	</script>
+	      </div>
+	  	</div>
+  </body>
+</html>
