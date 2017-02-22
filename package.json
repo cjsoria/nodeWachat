@@ -4,7 +4,8 @@
   "description": "chat with socket.io in node",
   "main": "app.js",
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Cristian Javier Soria Fajardo",
   "license": "ISC",

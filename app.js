@@ -23,7 +23,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static('public'));
 
 app.use('/', index);
 app.use('/users', users);
@@ -47,13 +47,29 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
+var count = 0;
 
 io.on('connection', function(socket){
-  socket.on('chat message', function(msg){
-    io.emit('chat message', msg);
+  io.sockets.emit('user in', 'A new user has arrived', ++count);
+
+  socket.on('chat message', function(nick, msg){
+    io.sockets.emit('chat message', nick, msg);
   });
+
+  socket.on('typing', function(nick){
+  	io.sockets.emit('user typing', `${nick} is typing...`);
+  });
+
+    socket.on('disconnect', function(nick){
+    --count;
+    io.sockets.emit('user out', `${nick} has gone`, count);
+  });
+
 });
 
-http.listen(3000, function(){
-  console.log('listening on *:3000');
+const PORT = process.env.PORT || '2017';
+
+http.listen(PORT, function() {
+	const port = process.env.PORT || '2017';
+	console.log(`Listening on port ${PORT}`);
 });
