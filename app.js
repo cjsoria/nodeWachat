@@ -48,21 +48,31 @@ app.use(function(err, req, res, next) {
 
 module.exports = app;
 var count = 0;
+var counter = 0;
 
 io.on('connection', function(socket){
-  io.sockets.emit('user in', 'A new user has arrived', ++count);
 
+  // user has connected
+  socket.on('user in', function(nick){
+    socket.nick = nick;
+    io.sockets.emit('user in', `${socket.nick} has arrived`, ++count, ++counter);
+  });
+  
+  //user's message to send
   socket.on('chat message', function(nick, msg){
-    io.sockets.emit('chat message', nick, msg);
+
+    socket.broadcast.emit('chat message', socket.nick, msg, ++counter);
   });
 
+  //notice when user is typing
   socket.on('typing', function(nick){
   	io.sockets.emit('user typing', `${nick} is typing...`);
   });
 
-    socket.on('disconnect', function(nick){
+  //notice when user has disconnected
+  socket.on('disconnect', function(){
     --count;
-    io.sockets.emit('user out', `${nick} has gone`, count);
+    io.sockets.emit('user out', `${socket.nick} has gone`, count);
   });
 
 });

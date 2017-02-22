@@ -7,28 +7,42 @@
 		<!-- styles -->
   	<link rel="stylesheet" type="text/css" href="stylesheets/style.css">
 
-	 	<!-- materialize -->
+	 	<!-- jquery -->
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+
+	 	<!-- materialize -->
   	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
   	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
 
 
-
   </head>
   <body>
+
+
+  <!-- Modal Trigger -->
+  <a class="waves-effect waves-light btn" href="#modal1">Modal</a>
+
+  <!-- Modal Structure -->
+  <div id="modal1" class="modal" style="display: block; z-index: 1000">
+    <div class="modal-content">
+      <h4>Modal Header</h4>
+      <p>A bunch of text</p>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+    </div>
+  </div>
+
+          
 	<div class="container-fluid">
 	  	<div class="row">
 	  		<div class="col s3">
-	  			<div class="chats-wrapp">
-	  				<div class="butterbar">
+	  			<div  id="list" class="chats-wrapp">
+	  				<div id="users-list" class="butterbar">
 	  					<br>
 	  					<h5>Partners:</h5>
 	  				</div>
 	  				
-	  				<div class="chat-pan-content">
-		  				<img class="circle avatar" src="images/no-avatar.png">
-		  				<h6 class="user-name">Me</h6>
-		  			</div>
 	  			</div>
 	  		</div>
 	  		<div class="col s9">
@@ -36,13 +50,12 @@
 	  				<div class="chat-bg"></div>
 	  				<div id="chat-content" class="chat-content">
 	  					<div class="speech-wrapper">
-							<div id="message" class="bubble"></div>
 						</div>
 	  				</div>
 	  			</div>
 	  			<div class="section-footer">
-	  				<form>
-						<input id="to-send" class="col s10" type="text" name="msg" placeholder="Type your message" >
+	  				<form>  				
+						<input id="to-send" class="col s10" type="text" name="msg" placeholder="Type your message" autocomplete="off">
 						<button class="col s2 btn waves-effect waves-light" type="submit" >
 							Send
 						</button>
@@ -52,8 +65,13 @@
 	  	</div>
 	</div>
 
-    		<!-- scripts -->
+		<!-- scripts -->
     <script src="/socket.io/socket.io.js"></script>
     <script src="javascripts/session.js"></script>
+    <script type="text/javascript">
+    	$(document).ready(function() {
+    		$('.modal1').leanModal();
+    	})
+    </script>
   </body>
 </html>
