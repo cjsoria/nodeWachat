@@ -53,14 +53,13 @@ var counter = 0;
 io.on('connection', function(socket){
 
   // user has connected
-  socket.on('user in', function(nick){
+  socket.on('user in', function(nick, anim, stat){
     socket.nick = nick;
-    io.sockets.emit('user in', `${socket.nick} has arrived`, ++count, ++counter);
+    io.sockets.emit('user in', socket.nick, ++count, ++counter, anim, stat);
   });
-  
+
   //user's message to send
   socket.on('chat message', function(nick, msg){
-
     socket.broadcast.emit('chat message', socket.nick, msg, ++counter);
   });
 
@@ -72,7 +71,7 @@ io.on('connection', function(socket){
   //notice when user has disconnected
   socket.on('disconnect', function(){
     --count;
-    io.sockets.emit('user out', `${socket.nick} has gone`, count);
+    io.sockets.emit('user out', socket.nick, count);
   });
 
 });
