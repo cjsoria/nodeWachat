@@ -11,7 +11,7 @@ $('form').submit(function(e){
 	var msg = $('#to-send').val();
 	var d = new Date();
 	var min = ('0'+d.getMinutes()).slice(-2);
-	if (msg) {
+	if (msg){
 		$('.speech-wrapper').append($(`<div id="message${counter}" class="bubbles">`));
 		$(`#message${counter}`).append($('<h3 class="msg-author">').text(nick));
 		$(`#message${counter}`).append($('<div class="msg-text">').text(msg));
