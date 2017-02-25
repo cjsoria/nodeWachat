@@ -11,15 +11,17 @@ $('form').submit(function(e){
 	var msg = $('#to-send').val();
 	var d = new Date();
 	var min = ('0'+d.getMinutes()).slice(-2);
-	$('.speech-wrapper').append($(`<div id="message${counter}" class="bubbles">`));
-	$(`#message${counter}`).append($('<h3 class="msg-author">').text(nick));
-	$(`#message${counter}`).append($('<div class="msg-text">').text(msg));
-	$(`#message${counter}`).append($('<div class="bubbles-arrow">'));
-	$(`#message${counter}`).append($('<span class="timestamp">').text(d.getHours()+':'+min));
-	animateScroll();
-	socket.emit('chat message',nick, $('#to-send').val());
-	$('#to-send').val('');
-	++counter
+	if (msg == true) {
+		$('.speech-wrapper').append($(`<div id="message${counter}" class="bubbles">`));
+		$(`#message${counter}`).append($('<h3 class="msg-author">').text(nick));
+		$(`#message${counter}`).append($('<div class="msg-text">').text(msg));
+		$(`#message${counter}`).append($('<div class="bubbles-arrow">'));
+		$(`#message${counter}`).append($('<span class="timestamp">').text(d.getHours()+':'+min));
+		animateScroll();
+		socket.emit('chat message',nick, $('#to-send').val());
+		$('#to-send').val('');
+		++counter
+	}
 });
 
 $('input').keydown(function(){
